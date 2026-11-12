@@ -65,3 +65,10 @@ factor, so the function raises `ValueError` rather than returning the
 input or `1`. Callers who have an arbitrary integer in hand should check
 `is_prime` first, or simply call `factorize`, which handles the prime
 case internally by returning a single-element list.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
